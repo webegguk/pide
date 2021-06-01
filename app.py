@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from flask_restful import Api
 from flask import jsonify
@@ -12,8 +13,10 @@ from db import db
 
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data.db"
+#postgres://jfnfuoxkqxrtrz:1ef0630f64ff402166fe02e18d650bb44caf057fe5daa839647304123c2ff43a@ec2-34-247-118-233.eu-west-1.compute.amazonaws.com:5432/d9pds03em2fhlc
+app.config["SQLALCHEMY_DATABASE_URI"] = os.eniron.get("DATABASE_URL", "sqlite:///data.db")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
 app.secret_key = "jose"
 api = Api(app)
 
