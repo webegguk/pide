@@ -13,8 +13,11 @@ from db import db
 
 
 app = Flask(__name__)
-#postgres://jfnfuoxkqxrtrz:1ef0630f64ff402166fe02e18d650bb44caf057fe5daa839647304123c2ff43a@ec2-34-247-118-233.eu-west-1.compute.amazonaws.com:5432/d9pds03em2fhlc
-app.config["SQLALCHEMY_DATABASE_URI"] = os.eniron.get("DATABASE_URL", "sqlite:///data.db")
+uri = os.getenv("DATABASE_URL", "sqlite:///data.db")  # or other relevant config var
+if uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://", 1)
+# rest of connection code using the connection string `uri`
+app.config["SQLALCHEMY_DATABASE_URI"] = uri
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 app.secret_key = "jose"
